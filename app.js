@@ -161,21 +161,55 @@
       
 // ---------------------------------------------NEW-CODE------------------------------------------ //
 
-// Refactored code: always try to limit the functions and files to a single responsibility.
+// ** Refactored code: always try to limit the functions and files to a single responsibility. **
 
-const fs = require('fs');
+      // const fs = require('fs');
 
-// With this statement, the object in the module.exports assignment will be reassigned to the generatePage variable in 
-// the app.js file. Note here that the variable name is arbitrary; however, the relative path to include the file must be exact.
+// ** With this statement, the object in the module.exports assignment will be reassigned to the generatePage variable in 
+//    the app.js file. Note here that the variable name is arbitrary; however, the relative path to include the file must be exact. **
 
-const generatePage = require('./src/page-template.js');
+      // const generatePage = require('./src/page-template.js');
 
-const profileDataArgs = process.argv.slice(2);
+      // const profileDataArgs = process.argv.slice(2);
 
-const [name, github] = profileDataArgs;
+      // const [name, github] = profileDataArgs;
 
-fs.writeFile('./index.html', generatePage(name, github), err => {
-  if (err) throw new Error(err);
+      // fs.writeFile('./index.html', generatePage(name, github), err => {
+         // if (err) throw new Error(err);
 
-  console.log('Portfolio complete! Check out index.html to see the output!');
-});
+         // console.log('Portfolio complete! Check out index.html to see the output!');
+      // });
+
+// ---------------------------------------------NEW-CODE------------------------------------------ //
+
+// Since we're not going to use process.argv to capture data anymore and we're using Inquirer instead, delete any 
+// code mentioning it.
+
+const inquirer = require('inquirer');
+
+inquirer
+  // Notice that inquirer's prompt method can receive an array of objects in its argument, known as the question object.
+  // The properties of the question object identify the type, name, and question message of this particular question.
+  .prompt([
+    {
+      // "Input" was chosen as the type of question because the answer will be a text reply.
+      type: 'input',
+      name: 'name',
+      message: 'What is your name?'
+    }
+  ])
+  // The answer object is returned as a Promise. We'll explore Promises more later, but for now understand that this 
+  // is a new tool for dealing with asynchronous functions that will return the answer object in the then function.
+  .then(answers => console.log(answers));
+
+// const fs = require('fs');
+// const generatePage = require('./src/page-template');
+
+// const pageHTML = generatePage(name, github);
+
+// fs.writeFile('./index.html', pageHTML, err => {
+//   if (err) throw err;
+
+//   console.log('Portfolio complete! Check out index.html to see the output!');
+// });
+
