@@ -168,7 +168,7 @@ const fs = require('fs');
 // With this statement, the object in the module.exports assignment will be reassigned to the generatePage variable in 
 // the app.js file. Note here that the variable name is arbitrary; however, the relative path to include the file must be exact.
 
--const generatePage = require('./src/page-template.js');
+const generatePage = require('./src/page-template.js');
 
 const profileDataArgs = process.argv.slice(2);
 
