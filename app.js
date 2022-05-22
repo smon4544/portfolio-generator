@@ -1,13 +1,6 @@
-// const fs = require('fs');
-// const generatePage = require('./src/page-template');
-
-// const pageHTML = generatePage(name, github);
-
-// fs.writeFile('./index.html', pageHTML, err => {
-//   if (err) throw err;
-
-//   console.log('Portfolio complete! Check out index.html to see the output!');
-// });
+const fs = require('fs');
+// This expression assigns the anonymous HTML template function in page-template.js to the variable generatePage.
+const generatePage = require('./src/page-template');
 
 const inquirer = require('inquirer');
 
@@ -176,14 +169,11 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
-  });
+    const pageHTML = generatePage(portfolioData);
 
-// In order to see if the new question types are working properly, we'll need to call the function promptProject().
-// Using Promises, we can chain the functions together using the then() method.
-//promptUser()
-  // .then(answers => console.log(answers))
-  // .then(promptProject)
-  // .then(projectAnswers => console.log(projectAnswers));
-// The preceding image shows that by chaining the function call to the then() method, we can control the sequence of the 
-// application's control flow. We only want to prompt users with the project questions after the profile questions.
+    fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+
+      console.log('Page created! Check out index.html in this directory to see it!');
+    });
+  });
